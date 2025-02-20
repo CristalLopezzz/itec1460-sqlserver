@@ -34,3 +34,14 @@ INNER JOIN [Order Details] od ON o.OrderID = od.OrderID
 WHERE YEAR(o.OrderDate) = 1997
 GROUP BY c.CustomerID, c.CompanyName
 ORDER BY TotalPurchase DESC;
+
+-- Part 3: Shows total revenue for each customer in 1997 and how many orders they placed
+SELECT TOP 10 
+o.CustomerID,
+ROUND(SUM(od.UnitPrice * od.Quantity * (1 - od.Discount)),2) AS TotalRevenue,
+COUNT(DISTINCT o.OrderID) AS OrderCount
+FROM Orders o
+JOIN [Order Details] od ON o.OrderID = od.OrderID
+WHERE YEAR(o.OrderDate) = 1997
+GROUP BY o.CustomerID
+ORDER BY TotalRevenue DESC;
