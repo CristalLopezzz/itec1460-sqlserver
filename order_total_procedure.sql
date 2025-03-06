@@ -94,3 +94,10 @@ BEGIN
    END 
 END
 GO
+-- Testing with valid ProductID
+DECLARE @NeedsReorder BIT;
+EXEC CheckProductStock
+    @ProductID = 20,
+    @NeedsReorder = @NeedsReorder OUTPUT;
+PRINT 'Needs reorder: ' + CAST(@NeedsReorder AS NVARCHAR(10));
+GO
